@@ -4,8 +4,7 @@ import { Pagination } from "flowbite-react";
 import { useEffect, useState } from "react";
 
 export default function InsightsLayout({ children }: { children: React.ReactNode, }) {
-  const currDate = new Date();
-  const currMonth = currDate.getMonth()
+  const currMonth = new Date().getMonth();
   const [currentPage, setCurrentPage] = useState(currMonth);
 
   useEffect(() => {
