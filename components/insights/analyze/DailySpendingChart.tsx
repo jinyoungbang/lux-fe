@@ -95,7 +95,7 @@ const DailySpendingChart = ({ data }) => {
   };
 
   return (
-    <Card className='mt-4 mb-4'>
+    <Card className='mt-4 mb-4 shadow-none' >
       <div className="flex items-center justify">
         <h5 className="text-sm font-medium leading-none text-gray-900 dark:text-white">
           Daily spending for {new Date().toLocaleString('default', { month: 'long' })} 2023

@@ -62,7 +62,7 @@ export default function MonthlySpendingChart({ monthlyData }) {
 
   return (
 
-    <Card>
+    <Card className="shadow-none">
       <div className="flex items-center justify-between">
         <h5 className="text-sm font-medium leading-none text-gray-900 dark:text-white">
           You spent around ${monthlyData[5].total_spending} this month!
