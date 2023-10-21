@@ -54,6 +54,9 @@ const CategoryAnalysis = ({ data }) => {
     return (
       <div className="py-3 sm:py-4">
         <div className="flex items-center space-x-4">
+          <div className="h-2 w-2" style={{ backgroundColor: categoryColors[category], borderRadius: '50%' }}>
+          </div>
+
           <div className="min-w-0 flex-1">
             <p className="truncate text-xs font-medium text-gray-900 dark:text-white">
               {category}
@@ -89,7 +92,7 @@ const CategoryAnalysis = ({ data }) => {
     TRAVEL: '#8DA2FB',
     RENT_AND_UTILITIES: "#31C48D",
   };
-  
+
 
   const CategoryBar = (data: any) => {
     const elements = data.map((categoryData: any) => ({
@@ -97,7 +100,7 @@ const CategoryAnalysis = ({ data }) => {
       color: categoryColors[categoryData.category], // You can set the color based on your requirements
       isBold: false,
     }));
-  
+
     return (
       <MultiProgress
         transitionTime={1.2}
