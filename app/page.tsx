@@ -13,13 +13,12 @@ export default function Home() {
 
   const onSuccess = useCallback((public_token: string, metadata: any) => {
     // Send public_token to the server
-    console.log(public_token)
-    const formData = new FormData();
-    formData.append('public_token', public_token);
-
     fetch('http://127.0.0.1:5000/api/plaid/exchange_public_token', {
       method: 'POST',
-      body: formData,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ public_token }),
     })
       .then((response) => {
         // Handle the response here
