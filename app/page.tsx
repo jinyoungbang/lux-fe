@@ -1,11 +1,10 @@
 "use client"
-
 import { useEffect, useState, useCallback } from "react";
-import TransactionList from "@/components/TransactionList";
 import {
   usePlaidLink,
   PlaidLinkOptions,
 } from 'react-plaid-link';
+import { Button } from 'flowbite-react';
 
 
 export default function Home() {
@@ -62,10 +61,9 @@ export default function Home() {
 
   return (
     <main>
-      <button className="button is-link" onClick={() => open()} disabled={!ready}>
+      <Button className="button is-link" color="warning" onClick={() => open()} disabled={!ready}>
         Link account
-      </button>
-      <TransactionList />
+      </Button>
     </main>
   );
 }
