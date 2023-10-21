@@ -11,7 +11,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="flex flex-col max-w-md min-h-screen mx-auto">
+      <body className="flex flex-col max-w-md min-h-screen mx-auto ">
         <div>
           <header className="h-14 z-20 relative bg-white mx-auto ">
             <Navigation />
@@ -33,30 +33,14 @@ const Footer = () => {
     <footer className="h-10 z-20 min-w-[320px] relative bg-white max-w-screen-lg mx-auto px-5">
       <ul className="flex flex-row justify-between">
         <li>
-          <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
+          {/* <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
             © 2023{" "}
             <Link href="/" className="hover:underline">
               Lux
             </Link>
             . All Rights Reserved.
-          </span>
+          </span> */}
         </li>
-        <div className="flex flex-row">
-          <li className="ml-2">
-            <Link href="/about">
-              <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
-                About
-              </span>
-            </Link>
-          </li>
-          <li className="ml-2">
-            <Link href="/contact">
-              <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
-                Get Started
-              </span>
-            </Link>
-          </li>
-        </div>
       </ul>
     </footer>
   );
