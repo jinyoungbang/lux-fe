@@ -2,17 +2,35 @@
 import TransactionCard from "@/components/TransactionCard";
 import Transactions from "@/components/Transactions";
 import { Button, Card } from "flowbite-react";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useContext } from "react";
+import { MonthContext } from "./layout";
 
-const transactions = [
-  { title: 'Grocery Shopping', amount: '$50.00', date: '2023-10-21', description: 'Weekly grocery expenses' },
-  { title: 'Coffee Shop', amount: '$5.00', date: '2023-10-20', description: 'Morning coffee' },
-  // Add more transaction data as needed
-];
-
-
-export default function Home() {
+export default function Insights() {
   const [total, setTotal] = useState(1000)
+  const [showAllTransactions, setShowAllTransactions] = useState(false)
+  const [transactions, setTransactions] = useState([])
+  const currentMonth = useContext(MonthContext);
+  const visibleTransactions = showAllTransactions ? transactions : transactions.slice(0, 5);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch(`http://127.0.0.1:5000/api/insights/transactions/monthly?date=${convertMonthToISODate(currentMonth)}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const responseData = await response.json();
+        setTransactions(responseData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+    fetchData();
+  }, [currentMonth]);
+
+  const viewAll = () => {
+    setShowAllTransactions(!showAllTransactions);
+  }
 
   return (
     <main className='mt-2 min-w-full'>
@@ -24,15 +42,19 @@ export default function Home() {
           Analyze
         </Button>
       </div>
-      <Transactions>
+      <Transactions viewAll={viewAll}>
         <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-          {transactions.map((transaction, index) => (
-            <TransactionCard key={index} {...transaction} />
+          {visibleTransactions.map((transaction, index) => (
+            <TransactionCard key={index} transaction={transaction} />
           ))}
         </ul>
       </Transactions>
     </main>
   );
+}
+
+function getTransactionTotal(transactions: Array<number>) {
+
 }
 
 function formatUSD(amount: number): string {
@@ -47,4 +69,14 @@ function formatUSD(amount: number): string {
   }).format(amount / 100);
 
   return formattedAmount;
+}
+
+function convertMonthToISODate(month: number): string {
+  if (month < 1 || month > 12) {
+    throw new Error('Invalid month. Month should be between 1 and 12.');
+  }
+
+  const currentYear = new Date().getFullYear();
+  const isoDate = `${currentYear}-${month < 10 ? '0' : ''}${month}-01`;
+  return isoDate;
 }
