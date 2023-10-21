@@ -16,11 +16,11 @@ export default function Home() {
 
   return (
     <main className='mt-2 min-w-full'>
-      <div className='flex'>
+      <div className='flex mb-6'>
         <p className="font-bold text-2xl mx-auto mt-2 mb-4">
           {formatUSD(total)}
         </p>
-        <Button size="sm" className='mx-auto'>
+        <Button size="sm" className='mx-auto' href="/insights/analyze">
           Analyze
         </Button>
       </div>
