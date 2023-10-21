@@ -1,39 +1,24 @@
 "use client"
 import { useEffect, useState, useCallback } from "react";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Filler,
-  Legend,
-} from 'chart.js';
+
 import { Line } from 'react-chartjs-2';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Filler,
-  Legend
-);
+import MonthlySpendingChart from "@/components/insights/analyze/MonthlySpendingChart";
+import DailySpendingChart from "@/components/insights/analyze/DailySpendingChart";
 
 
 
 export default function Analyze() {
 
   const [data, setData] = useState([]);
+  const [last6MonthsData, setLast6MonthsData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch("http://127.0.0.1:5000/api/insights/transactions/monthly?date=2023-09-01");
+        const response = await fetch("http://127.0.0.1:5000/api/insights/transactions/monthly?date=2023-10-01");
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -44,8 +29,33 @@ export default function Analyze() {
       }
     }
 
-    fetchData();
+    async function fetchLast6MonthsData() {
+      try {
+        const response = await fetch(
+          "http://127.0.0.1:5000/api/insights/transactions/last-6-months?date=2023-10-01"
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const responseData = await response.json();
+        setLast6MonthsData(responseData);
+      } catch (error) {
+        console.error("Error fetching last 6 months data:", error);
+      }
+    }
+
+    async function finishLoad() {
+      await fetchData();
+      await fetchLast6MonthsData();
+      setIsLoading(false);
+    }
+    finishLoad();
   }, []);
+
+  if (isLoading) return "Loading"
+
 
   const createDailySpendingData = () => {
     if (data.length === 0) return null;
@@ -113,8 +123,10 @@ export default function Analyze() {
     <main>
       <hr className="w-full h-2 bg-gray-200 mt-4 mb-4" />
       <h1>Test</h1>
-      <Line options={options} data={chartData} />
+      <DailySpendingChart data={data} /> {/* Add the DailySpendingChart component */}
       <hr className="w-full h-2 bg-gray-200 mt-4 mb-4" />
+      <h1>You've used around ${last6MonthsData && last6MonthsData[5].total_spending} this month!</h1>
+      <MonthlySpendingChart monthlyData={last6MonthsData} />
     </main>
   );
 }
