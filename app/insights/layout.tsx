@@ -16,9 +16,12 @@ export default function InsightsLayout({ children }: { children: React.ReactNode
     return (
       <>
         <Pagination
+          nextLabel={getMonthFromNumber(currentPage + 1)}
+          previousLabel={getMonthFromNumber(currentPage - 1)}
           currentPage={currentPage}
           layout="navigation"
           onPageChange={page => { setCurrentPage(page) }}
+          showIcons
           totalPages={12}
         />
       </>
@@ -27,7 +30,8 @@ export default function InsightsLayout({ children }: { children: React.ReactNode
   
   return (
     <>
-      <div className="p-4 sm:ml-64 mt-14">
+      <div className="flex flex-col justify-center items-center p-4 sm:ml-64 mt-14">
+        <h1>{getMonthFromNumber(currentPage)}</h1>
         <MonthPagination/>
         {children}
       </div>
@@ -44,4 +48,17 @@ function convertMonthToISODate(month: number): string {
   const currentYear = new Date().getFullYear();
   const isoDate = `${currentYear}-${month < 10 ? '0' : ''}${month}-01`;
   return isoDate;
+}
+
+function getMonthFromNumber(month: number): string {
+  const monthNames = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+
+  if (month >= 1 && month <= 12) {
+    return monthNames[month - 1];
+  } else {
+    return 'N/A';
+  }
 }
