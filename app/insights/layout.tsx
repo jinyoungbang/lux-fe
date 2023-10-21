@@ -1,11 +1,21 @@
 'use client';
 import '../globals.css';
 import { Pagination } from "flowbite-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, createContext } from "react";
+
+export const MonthContext = createContext<number>(0);
 
 export default function InsightsLayout({ children }: { children: React.ReactNode, }) {
   const currMonth = new Date().getMonth();
   const [currentPage, setCurrentPage] = useState(currMonth + 1);
+
+  const MonthProvider = ({ children }: { children: React.ReactNode}) => {
+    return (
+      <MonthContext.Provider value={currentPage}>
+        {children}
+      </MonthContext.Provider>
+    )
+  }
 
   useEffect(() => {
     console.log(currentPage)
@@ -35,7 +45,9 @@ export default function InsightsLayout({ children }: { children: React.ReactNode
           <h1>{getMonthFromNumber(currentPage)}</h1>
           <MonthPagination/>
         </div>
-        {children}
+        <MonthProvider>
+          {children}
+        </MonthProvider>
       </div>
     </>
 

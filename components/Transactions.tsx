@@ -1,13 +1,20 @@
 "use client"
 
-import React, { ReactNode } from 'react';
-import { Card } from 'flowbite-react';
+import React, { ReactNode, useState } from 'react';
+import { Button, Card } from 'flowbite-react';
 
 interface TransactionsProps {
   children: ReactNode;
+  viewAll: () => void;
 }
 
-const TransactionCard: React.FC<TransactionsProps> = ({children}) => {
+const TransactionCard: React.FC<TransactionsProps> = ({children, viewAll}) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const toggleExpand = () => {
+    viewAll()
+    setIsExpanded(!isExpanded);
+  };
 
   return (
     <Card>
@@ -15,14 +22,15 @@ const TransactionCard: React.FC<TransactionsProps> = ({children}) => {
         <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">
           Latest Transactions
         </h5>
-        <a
-          className="text-sm font-medium text-cyan-600 hover:underline dark:text-cyan-500"
-          href="#"
+        <Button
+          pill
+          color='light'
+          onClick={toggleExpand}
         >
           <p>
-            View all
+            {isExpanded ? 'Collapse' : 'Expand'}
           </p>
-        </a>
+        </Button>
       </div>
       <div className="flow-root">
         {children}
