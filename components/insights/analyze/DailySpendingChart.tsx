@@ -1,7 +1,8 @@
 "use client"
 
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Card } from 'flowbite-react';
+import { MonthContext } from '@/app/insights/layout';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -29,6 +30,10 @@ ChartJS.register(
 
 
 const DailySpendingChart = ({ data }) => {
+  const currentMonth = useContext(MonthContext);
+  var currDate = new Date()
+  currDate.setMonth(currentMonth - 1);
+
   const createDailySpendingData = () => {
     if (data.length === 0) return null;
 
@@ -98,7 +103,7 @@ const DailySpendingChart = ({ data }) => {
     <Card className='mt-4 mb-4 shadow-none' >
       <div className="flex items-center justify">
         <h5 className="text-sm font-medium leading-none text-gray-900 dark:text-white">
-          Daily spending for {new Date().toLocaleString('default', { month: 'long' })} 2023
+          Daily spending for {currDate.toLocaleString('default', { month: 'long' })} 2023
         </h5>
       </div>
       <Line options={options} data={chartData} />

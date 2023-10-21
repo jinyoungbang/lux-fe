@@ -59,14 +59,14 @@ const CategoryAnalysis = ({ data }) => {
 
           <div className="min-w-0 flex-1">
             <p className="truncate text-xs font-medium text-gray-900 dark:text-white">
-              {category}
+              {capitalizeEachWord(category)}
             </p>
             <p className="truncate text-xs text-gray-500 dark:text-gray-400">
               {percentage.toFixed(2)}%
             </p>
           </div>
           <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-            ${amount}
+          {formatUSD(amount)}
           </div>
         </div>
       </div>
@@ -130,3 +130,25 @@ const CategoryAnalysis = ({ data }) => {
 };
 
 export default CategoryAnalysis;
+
+
+function capitalizeEachWord(text: string): string {
+  return text
+    .split('_') // Split the string by underscores
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize the first letter and make the rest lowercase
+    .join(' '); // Join the words back with spaces
+}
+
+function formatUSD(amount: number): string {
+  if (isNaN(amount)) {
+    return 'Invalid amount';
+  }
+
+  const formattedAmount = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2,
+  }).format(amount);
+
+  return formattedAmount;
+}

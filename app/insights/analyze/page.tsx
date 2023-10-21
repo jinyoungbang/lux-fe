@@ -1,7 +1,9 @@
 "use client"
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useContext } from "react";
 
 import { Line } from 'react-chartjs-2';
+
+import { MonthContext } from "../layout";
 
 import CategoryAnalysis from "@/components/insights/analyze/CategoryAnalysis";
 import MonthlySpendingChart from "@/components/insights/analyze/MonthlySpendingChart";
@@ -14,12 +16,14 @@ export default function Analyze() {
   const [data, setData] = useState([]);
   const [last6MonthsData, setLast6MonthsData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const currentMonth = useContext(MonthContext);
+  
 
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch("http://127.0.0.1:5000/api/insights/transactions/monthly?date=2023-10-01");
+        const response = await fetch(`http://127.0.0.1:5000/api/insights/transactions/monthly?date=${convertMonthToISODate(currentMonth)}`);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -33,7 +37,7 @@ export default function Analyze() {
     async function fetchLast6MonthsData() {
       try {
         const response = await fetch(
-          "http://127.0.0.1:5000/api/insights/transactions/last-6-months?date=2023-10-01"
+          `http://127.0.0.1:5000/api/insights/transactions/last-6-months?date=${convertMonthToISODate(currentMonth)}`
         );
 
         if (!response.ok) {
@@ -127,4 +131,14 @@ export default function Analyze() {
       <MonthlySpendingChart monthlyData={last6MonthsData} />
     </main>
   );
+}
+
+function convertMonthToISODate(month: number): string {
+  if (month < 1 || month > 12) {
+    throw new Error('Invalid month. Month should be between 1 and 12.');
+  }
+
+  const currentYear = new Date().getFullYear();
+  const isoDate = `${currentYear}-${month < 10 ? '0' : ''}${month}-01`;
+  return isoDate;
 }
