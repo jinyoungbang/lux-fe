@@ -30,9 +30,11 @@ export default function InsightsLayout({ children }: { children: React.ReactNode
   
   return (
     <>
-      <div className="flex flex-col justify-center items-center p-4 sm:ml-64 mt-14">
-        <h1>{getMonthFromNumber(currentPage)}</h1>
-        <MonthPagination/>
+      <div className="flex flex-col p-4 mt-14">
+        <div className="flex flex-col items-center">
+          <h1>{getMonthFromNumber(currentPage)}</h1>
+          <MonthPagination/>
+        </div>
         {children}
       </div>
     </>

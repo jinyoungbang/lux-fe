@@ -11,15 +11,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="flex flex-col max-w-md min-w-screen justify-between min-h-screen mx-auto">
+      <body className="flex flex-col max-w-md min-h-screen mx-auto">
         <div>
-          <header className="h-14 z-20 min-w-[320px] relative bg-white max-w-screen-lg mx-auto ">
+          <header className="h-14 z-20 relative bg-white mx-auto ">
             <Navigation />
           </header>
-          <div className="flex flex-col max-w-screen-sm mx-auto px-5 py-2.5 justify-between align-middle">
-            <main className="flex-grow">
+          <div className="flex flex-col px-5 py-2.5">
               {children}
-            </main>
           </div>
         </div>
         <div className="flex-end">
