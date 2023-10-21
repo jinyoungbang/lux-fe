@@ -3,6 +3,7 @@ import { useEffect, useState, useCallback } from "react";
 
 import { Line } from 'react-chartjs-2';
 
+import CategoryAnalysis from "@/components/insights/analyze/CategoryAnalysis";
 import MonthlySpendingChart from "@/components/insights/analyze/MonthlySpendingChart";
 import DailySpendingChart from "@/components/insights/analyze/DailySpendingChart";
 
@@ -121,6 +122,7 @@ export default function Analyze() {
 
   return (
     <main className="mt-10">
+      <CategoryAnalysis data={data} />
       <DailySpendingChart data={data} /> {/* Add the DailySpendingChart component */}
       <MonthlySpendingChart monthlyData={last6MonthsData} />
     </main>
