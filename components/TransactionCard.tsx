@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { TransactionData } from '@/types/transaction';
+import { Stringifier } from 'postcss';
 
 interface TransactionCardProps {
   transaction: TransactionData
@@ -26,7 +27,7 @@ const TransactionCard: React.FC<TransactionCardProps> = ({ transaction }: { tran
             {name}
           </p>
           <p className="truncate text-sm text-gray-500 dark:text-gray-400">
-            {personal_finance_category.primary}
+            {capitalizeEachWord(personal_finance_category.primary)}
           </p>
         </div>
         <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
@@ -52,4 +53,11 @@ function formatUSD(amount: number): string {
   }).format(amount);
 
   return formattedAmount;
+}
+
+function capitalizeEachWord(text: string): string {
+  return text
+    .split('_') // Split the string by underscores
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize the first letter and make the rest lowercase
+    .join(' '); // Join the words back with spaces
 }
