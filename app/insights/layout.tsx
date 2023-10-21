@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 export default function InsightsLayout({ children }: { children: React.ReactNode, }) {
   const currMonth = new Date().getMonth();
-  const [currentPage, setCurrentPage] = useState(currMonth);
+  const [currentPage, setCurrentPage] = useState(currMonth + 1);
 
   useEffect(() => {
     console.log(currentPage)
@@ -29,7 +29,7 @@ export default function InsightsLayout({ children }: { children: React.ReactNode
     <>
       <div className="p-4 sm:ml-64 mt-14">
         <MonthPagination/>
-        {children}
+        {children }
       </div>
     </>
 
