@@ -34,7 +34,7 @@ export default function TransactionList() {
         {Object.keys(tabLabels).map((tabKey) => {
           const tab = tabKey as keyof typeof tabLabels;
           return (
-            <li key={tabKey} className="mr-2">
+            <li key={tabKey} className="flex-auto">
             <a 
               href="#"
               className={`inline-block p-4 border-b-2 rounded-t-lg ${getTabClass(tab, activeTab as TabType)}`}
@@ -53,8 +53,6 @@ export default function TransactionList() {
       <div className="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
         <TransactionTab />
       </div>
-      <ul className="flex flex-col">
-      </ul>
     </div>
   );
 }

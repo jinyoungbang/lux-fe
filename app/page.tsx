@@ -65,7 +65,6 @@ export default function Home() {
       <button className="button is-link" onClick={() => open()} disabled={!ready}>
         Link account
       </button>
-      <h1>Lux, your next financial asset manager</h1>
       <TransactionList />
     </main>
   );

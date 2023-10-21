@@ -8,6 +8,32 @@ export const metadata: Metadata = {
   description: "Work in Progress",
 };
 
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en">
+      <body className="flex flex-col max-w-md min-w-screen justify-between min-h-screen mx-auto">
+        <div>
+          <header className="h-14 z-20 min-w-[320px] relative bg-white max-w-screen-lg mx-auto ">
+            <Navigation />
+          </header>
+          <div className="flex flex-col max-w-screen-sm mx-auto px-5 py-2.5 justify-between align-middle">
+            <main className="flex-grow">
+              {children}
+            </main>
+          </div>
+        </div>
+        <div className="flex-end">
+          <Footer />
+        </div>
+      </body>
+    </html>
+  );
+}
+
 const Footer = () => {
   return (
     <footer className="h-10 z-20 min-w-[320px] relative bg-white max-w-screen-lg mx-auto px-5">
@@ -41,29 +67,3 @@ const Footer = () => {
     </footer>
   );
 };
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <html lang="en">
-      <body className="flex flex-col min-w-screen justify-between min-h-screen">
-        <div>
-          <header className="h-14 z-20 min-w-[320px] relative bg-white max-w-screen-lg mx-auto ">
-            <Navigation />
-          </header>
-          <div className="flex flex-col max-w-screen-sm mx-auto px-5 py-2.5 justify-between align-middle">
-            <main className="flex-grow">
-              {children}
-            </main>
-          </div>
-        </div>
-        <div className="flex-end">
-          <Footer />
-        </div>
-      </body>
-    </html>
-  );
-}
