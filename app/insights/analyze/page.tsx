@@ -120,12 +120,8 @@ export default function Analyze() {
 
 
   return (
-    <main>
-      <hr className="w-full h-2 bg-gray-200 mt-4 mb-4" />
-      <h1>Test</h1>
+    <main className="mt-10">
       <DailySpendingChart data={data} /> {/* Add the DailySpendingChart component */}
-      <hr className="w-full h-2 bg-gray-200 mt-4 mb-4" />
-      <h1>You've used around ${last6MonthsData && last6MonthsData[5].total_spending} this month!</h1>
       <MonthlySpendingChart monthlyData={last6MonthsData} />
     </main>
   );

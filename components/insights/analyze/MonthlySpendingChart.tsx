@@ -1,23 +1,25 @@
 import React from "react";
 import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    BarElement,
-    Title,
-    Tooltip,
-    Legend,
-  } from 'chart.js';
-  import { Bar } from 'react-chartjs-2';
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Bar } from 'react-chartjs-2';
 
-  ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    BarElement,
-    Title,
-    Tooltip,
-    Legend
-  );
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+import { Card } from 'flowbite-react';
 
 export default function MonthlySpendingChart({ monthlyData }) {
   // Extract data for labels, start dates, and total spending from the provided monthlyData
@@ -46,7 +48,7 @@ export default function MonthlySpendingChart({ monthlyData }) {
       y: {
         beginAtZero: true,
         title: {
-          display: true,
+          // display: true,
           text: "Total Spending",
         },
       },
@@ -58,5 +60,15 @@ export default function MonthlySpendingChart({ monthlyData }) {
     },
   };
 
-  return <Bar data={data} options={options} />;
+  return (
+
+    <Card>
+      <div className="flex items-center justify-between">
+        <h5 className="text-sm font-medium leading-none text-gray-900 dark:text-white">
+          You spent around ${monthlyData[5].total_spending} this month!
+        </h5>
+      </div>
+      <Bar data={data} options={options} />
+    </Card>
+  )
 }

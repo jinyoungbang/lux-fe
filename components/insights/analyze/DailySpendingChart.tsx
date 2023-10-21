@@ -1,31 +1,32 @@
 "use client"
 
 import React, { useEffect, useState } from 'react';
+import { Card } from 'flowbite-react';
 import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Filler,
-    Legend,
-  } from 'chart.js';
-  import { Line } from 'react-chartjs-2';
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Filler,
+  Legend,
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
 
-  ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Filler,
-    Legend
-  );
-  
-  
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Filler,
+  Legend
+);
+
+
 
 const DailySpendingChart = ({ data }) => {
   const createDailySpendingData = () => {
@@ -75,7 +76,6 @@ const DailySpendingChart = ({ data }) => {
       },
       title: {
         display: true,
-        text: 'Daily Spending for September 2023',
       },
     },
   };
@@ -95,9 +95,14 @@ const DailySpendingChart = ({ data }) => {
   };
 
   return (
-    <div>
+    <Card className='mt-4 mb-4'>
+      <div className="flex items-center justify">
+        <h5 className="text-sm font-medium leading-none text-gray-900 dark:text-white">
+          Daily spending for {new Date().toLocaleString('default', { month: 'long' })} 2023
+        </h5>
+      </div>
       <Line options={options} data={chartData} />
-    </div>
+    </Card>
   );
 };
 
