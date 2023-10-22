@@ -37,7 +37,7 @@ export default function InsightsLayout({ children }: { children: React.ReactNode
           layout="navigation"
           onPageChange={page => { setCurrentPage(page) }}
           showIcons
-          totalPages={12}
+          totalPages={10}
         />
       </>
     )
