@@ -40,7 +40,7 @@ export default function Insights() {
     <main className='mt-2 min-w-full'>
       <div className='flex mb-6'>
         <p className="font-bold text-2xl mx-auto mt-2 mb-4">
-          {'$' + total}
+          {formatUSD(total)}
         </p>
         <Button size="sm" className='mx-auto' href="/insights/analyze">
           Analyze
@@ -73,17 +73,8 @@ function getTransactionTotal(transactions: Array<{ [key: string]: any }>): numbe
 }
 
 function formatUSD(amount: number): string {
-  if (isNaN(amount)) {
-    return 'Invalid amount';
-  }
-
-  const formattedAmount = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 2,
-  }).format(amount / 100);
-
-  return formattedAmount;
+  const formattedAmount = amount.toFixed(2); // Always format to two decimal places
+  return `$${formattedAmount}`;
 }
 
 function convertMonthToISODate(month: number): string {

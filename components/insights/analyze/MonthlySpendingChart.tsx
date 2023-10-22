@@ -74,15 +74,6 @@ export default function MonthlySpendingChart({ monthlyData }) {
 }
 
 function formatUSD(amount: number): string {
-  if (isNaN(amount)) {
-    return 'Invalid amount';
-  }
-
-  const formattedAmount = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 2,
-  }).format(amount);
-
-  return formattedAmount;
+  const formattedAmount = amount.toFixed(2); // Always format to two decimal places
+  return `$${formattedAmount}`;
 }
