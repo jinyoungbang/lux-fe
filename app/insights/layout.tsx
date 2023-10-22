@@ -14,7 +14,7 @@ export default function InsightsLayout({ children }: { children: React.ReactNode
   const currMonth = new Date().getMonth();
   const [currentPage, setCurrentPage] = useState(currMonth + 1);
 
-  const MonthProvider = ({ children }: { children: React.ReactNode}) => {
+  const MonthProvider = ({ children }: { children: React.ReactNode }) => {
     return (
       <MonthContext.Provider value={currentPage}>
         {children}
@@ -25,7 +25,7 @@ export default function InsightsLayout({ children }: { children: React.ReactNode
   useEffect(() => {
     console.log(currentPage)
     console.log(convertMonthToISODate(currentPage))
-  }, [currentPage]) 
+  }, [currentPage])
 
   const MonthPagination = () => {
     return (
@@ -45,6 +45,9 @@ export default function InsightsLayout({ children }: { children: React.ReactNode
 
   if (pathname === '/insights/cards') return (
     <>
+      <header className="flex h-14 z-20 relative bg-white mx-auto">
+        <Navigation />
+      </header>
       <div className="flex flex-col p-4 mt-14">
         <MonthProvider>
           {children}
@@ -52,7 +55,7 @@ export default function InsightsLayout({ children }: { children: React.ReactNode
       </div>
     </>
   )
-  
+
   return (
     <>
       <header className="flex h-14 z-20 relative bg-white mx-auto">
@@ -61,7 +64,7 @@ export default function InsightsLayout({ children }: { children: React.ReactNode
       <div className="flex flex-col p-4 mt-14">
         <div className="flex flex-col items-center">
           <h1 className='text-xl font-bold'>{getMonthFromNumber(currentPage)}</h1>
-          <MonthPagination/>
+          <MonthPagination />
         </div>
         <MonthProvider>
           {children}

@@ -17,7 +17,7 @@ export default function Analyze() {
   const [last6MonthsData, setLast6MonthsData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const currentMonth = useContext(MonthContext);
-  
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -64,7 +64,7 @@ export default function Analyze() {
     firstDayOfNextMonth.setUTCMonth(firstDayOfNextMonth.getUTCMonth() + 1, 1);
     // Subtract one day to get the last day of the specified month
     firstDayOfNextMonth.setUTCDate(firstDayOfNextMonth.getUTCDate() - 1);
-    
+
     const lastDayOfMonth = firstDayOfNextMonth.getUTCDate();
 
     const dailyData = new Array(lastDayOfMonth).fill(0);
@@ -121,12 +121,14 @@ export default function Analyze() {
 
   return (
     <main className="mt-10">
-      { isLoading ? <Spinner size="xl" className='flex py-8 mx-auto'/> :
-      <div>
-        <CategoryAnalysis data={data} />
-        <DailySpendingChart data={data} /> {/* Add the DailySpendingChart component */}
-        <MonthlySpendingChart monthlyData={last6MonthsData} />
-      </div>
+      {isLoading ? <div className="flex h-screen w-screen justify-center items-center">
+        <Spinner size="xl" />
+      </div> :
+        <div>
+          <CategoryAnalysis data={data} />
+          <DailySpendingChart data={data} /> {/* Add the DailySpendingChart component */}
+          <MonthlySpendingChart monthlyData={last6MonthsData} />
+        </div>
       }
     </main>
   );
