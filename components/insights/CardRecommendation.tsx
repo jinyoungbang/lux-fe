@@ -12,7 +12,7 @@ const CardRecommendation = () => {
   return (
     <Card className='mt-4 mb-4 shadow-none' >
       <h5 className="text-lg font-bold leading-none text-gray-900 dark:text-white">
-        We found the perfect card for your spending!
+        We found the perfect card for your most recent spendings!
       </h5>
       <div className='flex justify-center'>
         <Image
