@@ -100,7 +100,7 @@ const TransactionCard: React.FC<TransactionCardProps> = ({ transaction }: { tran
                 className='w-1/2'
                 addon='$' 
                 sizing='sm' 
-                defaultValue={currentAmount} 
+                defaultValue={formatUSD(currentAmount)} 
                 onChange={() => handleAmountChange} 
               />
             </div>
