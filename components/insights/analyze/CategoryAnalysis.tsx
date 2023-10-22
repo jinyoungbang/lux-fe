@@ -10,7 +10,7 @@ const CategoryAnalysis = ({ data }: {data: any}) => {
 
   const categorySpending = data.reduce((categories, transaction) => {
     const category = transaction.personal_finance_category.primary;
-    let currentAmount = (transaction.modified_amount !== undefined ? transaction.modified_amount : transaction.amount)
+    let currentAmount = !transaction.is_hidden ? (transaction.modified_amount !== undefined ? transaction.modified_amount : transaction.amount) : 0
     if (currentAmount < 0) {
       // Skip transactions with amount less than zero
       return categories;

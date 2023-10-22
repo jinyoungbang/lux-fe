@@ -24,7 +24,12 @@ export default function Insights() {
         const responseData = await response.json();
         const filteredData = filterObjectsByAmount(responseData)
         setTransactions(filteredData);
-        setTotal(filteredData.reduce((total, transaction) => total + (transaction.modified_amount !== undefined ? transaction.modified_amount : transaction.amount), 0))
+        setTotal(filteredData.reduce((total, transaction) => {
+          if (transaction.is_hidden) {
+            return total; // Skip this transaction
+          }
+          return total + (transaction.modified_amount !== undefined ? transaction.modified_amount : transaction.amount);
+        }, 0));
         setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
