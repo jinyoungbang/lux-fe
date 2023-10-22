@@ -16,7 +16,7 @@ export default function Insights() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch(`http://127.0.0.1:5000/api/insights/transactions/monthly?date=${convertMonthToISODate(currentMonth)}`);
+        const response = await fetch(`http://127.0.0.1:5000/api/prod/insights/transactions/monthly?date=${convertMonthToISODate(currentMonth)}`);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }

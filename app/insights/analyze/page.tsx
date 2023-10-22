@@ -23,7 +23,7 @@ export default function Analyze() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch(`http://127.0.0.1:5000/api/insights/transactions/monthly?date=${convertMonthToISODate(currentMonth)}`);
+        const response = await fetch(`http://127.0.0.1:5000/api/prod/insights/transactions/monthly?date=${convertMonthToISODate(currentMonth)}`);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -37,7 +37,7 @@ export default function Analyze() {
     async function fetchLast6MonthsData() {
       try {
         const response = await fetch(
-          `http://127.0.0.1:5000/api/insights/transactions/last-6-months?date=${convertMonthToISODate(currentMonth)}`
+          `http://127.0.0.1:5000/api/prod/insights/transactions/last-6-months?date=${convertMonthToISODate(currentMonth)}`
         );
 
         if (!response.ok) {

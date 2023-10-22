@@ -8,14 +8,14 @@ interface TransactionCardProps {
   transaction: TransactionData
 }
 
-const TransactionCard: React.FC<TransactionCardProps> = ({ transaction }: { transaction: TransactionData}) => {
+const TransactionCard: React.FC<TransactionCardProps> = ({ transaction }: { transaction: TransactionData }) => {
   const [openModal, setOpenModal] = useState<string | undefined>();
   const { transaction_id, personal_finance_category, personal_finance_category_icon_url, name, amount, modified_amount, date, is_hidden } = transaction;
-  
+
   const is_modified = true ? (amount !== modified_amount) || (modified_amount) : false
-  
+
   const [currentAmount, setAmount] = useState<number>(amount);
-  const [ignoreTransaction, setIgnoreTransaction] = useState<boolean>(false);
+  const [ignoreTransaction, setIgnoreTransaction] = useState<boolean>(is_hidden);
 
   const onSaveChanges = async () => {
     props.setOpenModal(undefined)
@@ -23,7 +23,7 @@ const TransactionCard: React.FC<TransactionCardProps> = ({ transaction }: { tran
     // currentAmount -> modified_value if modified value does not equal to amount or modified value is undefined
     // ignoreTransaction -> is_hidden
   }
-  
+
   const onClose = () => {
     props.setOpenModal(undefined)
     setIgnoreTransaction(is_hidden)
@@ -33,7 +33,7 @@ const TransactionCard: React.FC<TransactionCardProps> = ({ transaction }: { tran
       setAmount(modified_amount)
     }
   }
-  const props = { openModal, setOpenModal, onClose, onSaveChanges, currentAmount, setAmount, ignoreTransaction, setIgnoreTransaction};
+  const props = { openModal, setOpenModal, onClose, onSaveChanges, currentAmount, setAmount, ignoreTransaction, setIgnoreTransaction };
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAmount(parseFloat(e.target.value));
@@ -47,7 +47,7 @@ const TransactionCard: React.FC<TransactionCardProps> = ({ transaction }: { tran
     <li className="py-3 sm:py-4">
       <button onClick={() => props.setOpenModal('default')} className='w-full h-full'>
         <div className="flex items-center space-x-4">
-          <div className="shrink-0">
+          <div className={`shrink-0 ${ignoreTransaction ? 'opacity-50' : ''}`}>
             <img
               alt="Bonnie image"
               className="mb-3 rounded-full shadow-lg"
@@ -57,18 +57,18 @@ const TransactionCard: React.FC<TransactionCardProps> = ({ transaction }: { tran
             />
           </div>
           <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-medium text-gray-900">
+            <p className={`truncate text-sm font-medium ${ignoreTransaction ? 'text-gray-300' : 'text-gray-900'}`} >
               {name}
             </p>
-            <p className="truncate text-sm text-gray-500">
+            <p className={`truncate text-sm  ${ignoreTransaction ? 'text-gray-200' : 'text-gray-500'}`} >
               {capitalizeEachWord(personal_finance_category.primary)}
             </p>
           </div>
           <div className="flex-1 items-center">
-            <p className='ml-auto truncate text-base font-semibold text-gray-900'>
+            <p className={`ml-auto truncate text-base font-semibold ${ignoreTransaction ? 'text-gray-300' : 'text-gray-900'}`} >
               {formatUSD(amount)}
             </p>
-            <p className='truncate text-sm text-gray-500'>
+            <p className={`truncate text-sm  ${ignoreTransaction ? 'text-gray-200' : 'text-gray-500'}`} >
               {formatDateToMMDD(date)}
             </p>
           </div>
@@ -87,7 +87,7 @@ const TransactionCard: React.FC<TransactionCardProps> = ({ transaction }: { tran
         <Modal.Body>
           <div className="space-y-6">
             <p className="text-base leading-relaxed text-gray-500">
-              In this window, you have the option to hide the selected transaction and modify the amount if 
+              In this window, you have the option to hide the selected transaction and modify the amount if
               you covered the expense for your friends and received reimbursement through payment sharing services like Venmo.
             </p>
             <div className='flex justify-between items-center mt-4 mb-4'>
@@ -96,17 +96,14 @@ const TransactionCard: React.FC<TransactionCardProps> = ({ transaction }: { tran
             </div>
             <div className='flex justify-between items-center'>
               <Label>Change amount</Label>
-              <TextInput 
+              <TextInput
                 className='w-1/2'
-                addon='$' 
-                sizing='sm' 
-                defaultValue={formatUSD(currentAmount)} 
-                onChange={() => handleAmountChange} 
+                addon='$'
+                sizing='sm'
+                defaultValue={formatUSD(currentAmount)}
+                onChange={() => handleAmountChange}
               />
             </div>
-            <p className='truncate text-sm text-gray-500  mt-2'>
-              <b>This amount {is_modified ? 'has been modified before' : 'is the original value'}.</b>
-            </p>
           </div>
         </Modal.Body>
         <Modal.Footer>
