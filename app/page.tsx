@@ -12,7 +12,7 @@ export default function Home() {
 
   const onSuccess = useCallback((public_token: string, metadata: any) => {
     // Send public_token to the server
-    fetch('http://127.0.0.1:5000/api/plaid/exchange_public_token', {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/plaid/exchange_public_token`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -43,7 +43,7 @@ export default function Home() {
   const { open, ready } = usePlaidLink(config);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:5000/api/plaid/create_link_token', {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/plaid/create_link_token`, {
       method: 'POST',
     })
       .then((response) => response.json())

@@ -1,5 +1,4 @@
 "use client"
-
 import React, { useEffect, useState } from 'react';
 import { Card } from 'flowbite-react';
 
@@ -7,7 +6,7 @@ import { Card } from 'flowbite-react';
 import MultiProgress, { ProgressComponentProps } from "react-multi-progress";
 
 
-const CategoryAnalysis = ({ data }) => {
+const CategoryAnalysis = ({ data }: {data: any}) => {
 
   const categorySpending = data.reduce((categories, transaction) => {
     const category = transaction.personal_finance_category.primary;
@@ -24,14 +23,15 @@ const CategoryAnalysis = ({ data }) => {
 
   // Calculate the total spending
   const totalSpending = Object.values(categorySpending).reduce(
+    // @ts-ignore
     (total, categoryData) => total + categoryData.amount,
     0
   );
 
   // Calculate percentages and update the data
   for (const category in categorySpending) {
-    categorySpending[category].percentage =
-      (categorySpending[category].amount / totalSpending) * 100;
+    // @ts-ignore
+    categorySpending[category].percentage = (categorySpending[category].amount / totalSpending) * 100;
   }
 
   // Sort categories by spending in descending order

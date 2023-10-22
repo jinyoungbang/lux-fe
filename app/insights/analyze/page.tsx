@@ -1,6 +1,6 @@
 "use client"
 import { useEffect, useState, useContext } from "react";
-
+import { Spinner } from "flowbite-react";
 import { Line } from 'react-chartjs-2';
 
 import { MonthContext } from "../layout";
@@ -13,7 +13,7 @@ import DailySpendingChart from "@/components/insights/analyze/DailySpendingChart
 
 export default function Analyze() {
 
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(Array<any>);
   const [last6MonthsData, setLast6MonthsData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const currentMonth = useContext(MonthContext);
@@ -23,7 +23,7 @@ export default function Analyze() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch(`http://127.0.0.1:5000/api/prod/insights/transactions/monthly?date=${convertMonthToISODate(currentMonth)}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/prod/insights/transactions/monthly?date=${convertMonthToISODate(currentMonth)}`);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -37,7 +37,7 @@ export default function Analyze() {
     async function fetchLast6MonthsData() {
       try {
         const response = await fetch(
-          `http://127.0.0.1:5000/api/prod/insights/transactions/last-6-months?date=${convertMonthToISODate(currentMonth)}`
+          `${process.env.NEXT_PUBLIC_API_URL}/api/prod/insights/transactions/last-6-months?date=${convertMonthToISODate(currentMonth)}`
         );
 
         if (!response.ok) {
@@ -58,9 +58,6 @@ export default function Analyze() {
     }
     finishLoad();
   }, []);
-
-  if (isLoading) return "Loading"
-
 
   const createDailySpendingData = () => {
     if (data.length === 0) return null;
@@ -126,9 +123,13 @@ export default function Analyze() {
 
   return (
     <main className="mt-10">
-      <CategoryAnalysis data={data} />
-      <DailySpendingChart data={data} /> {/* Add the DailySpendingChart component */}
-      <MonthlySpendingChart monthlyData={last6MonthsData} />
+      { isLoading ? <Spinner size="xl" className='flex py-8 mx-auto'/> :
+      <div>
+        <CategoryAnalysis data={data} />
+        <DailySpendingChart data={data} /> {/* Add the DailySpendingChart component */}
+        <MonthlySpendingChart monthlyData={last6MonthsData} />
+      </div>
+      }
     </main>
   );
 }
