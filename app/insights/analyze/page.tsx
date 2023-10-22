@@ -18,8 +18,6 @@ export default function Analyze() {
   const [isLoading, setIsLoading] = useState(true);
   const currentMonth = useContext(MonthContext);
   
-
-
   useEffect(() => {
     async function fetchData() {
       try {

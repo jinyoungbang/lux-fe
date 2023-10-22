@@ -48,8 +48,9 @@ const DailySpendingChart = ({ data }) => {
     data.forEach((transaction) => {
       const date = new Date(transaction.date);
       const day = date.getUTCDate() - 1;
-      if (transaction.amount > 0) {
-        dailyData[day] += transaction.amount;
+      let currentAmount = (transaction.modified_amount !== undefined ? transaction.modified_amount : transaction.amount)
+      if (currentAmount > 0) {
+        dailyData[day] += currentAmount;
       }
     });
 

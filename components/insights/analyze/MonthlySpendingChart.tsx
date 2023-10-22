@@ -65,7 +65,7 @@ export default function MonthlySpendingChart({ monthlyData }) {
     <Card className="shadow-none">
       <div className="flex items-center justify-between">
         <h5 className="text-sm font-medium leading-none text-gray-900 dark:text-white">
-          You spent around {formatUSD(monthlyData[5].total_spending)} this month!
+          You spent around {formatUSD(monthlyData[monthlyData.length - 1].total_spending)} this month!
         </h5>
       </div>
       <Bar data={data} options={options} />

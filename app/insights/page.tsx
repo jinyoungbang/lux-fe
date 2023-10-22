@@ -23,7 +23,7 @@ export default function Insights() {
         const responseData = await response.json();
         const filteredData = filterObjectsByAmount(responseData)
         setTransactions(filteredData);
-        setTotal(filteredData.reduce((total, transaction) => total + transaction.amount, 0))
+        setTotal(filteredData.reduce((total, transaction) => total + (transaction.modified_amount !== undefined ? transaction.modified_amount : transaction.amount), 0))
         setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -38,11 +38,11 @@ export default function Insights() {
 
   return (
     <main className='mt-2 min-w-full'>
-      <div className='flex mb-6'>
+      <div className='flex mb-6 items-center'>
         <p className="font-bold text-2xl mx-auto mt-2 mb-4">
           {formatUSD(total)}
         </p>
-        <Button size="sm" className='mx-auto' href="/insights/analyze">
+        <Button size="lg" className='mx-auto mt-2 mb-4' href="/insights/analyze">
           Analyze
         </Button>
       </div>
@@ -58,8 +58,6 @@ export default function Insights() {
     </main>
   );
 }
-
-
 
 function getTransactionTotal(transactions: Array<{ [key: string]: any }>): number {
   const total = transactions.reduce((accumulator, transaction) => {

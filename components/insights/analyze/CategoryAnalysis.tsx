@@ -10,16 +10,22 @@ const CategoryAnalysis = ({ data }: {data: any}) => {
 
   const categorySpending = data.reduce((categories, transaction) => {
     const category = transaction.personal_finance_category.primary;
+    let currentAmount = (transaction.modified_amount !== undefined ? transaction.modified_amount : transaction.amount)
+    if (currentAmount < 0) {
+      // Skip transactions with amount less than zero
+      return categories;
+    }
     if (categories[category]) {
-      categories[category].amount += transaction.amount;
+      categories[category].amount += currentAmount;
     } else {
       categories[category] = {
-        amount: transaction.amount,
+        amount: currentAmount,
         percentage: 0, // Initialize percentage
       };
     }
     return categories;
   }, {});
+  
 
   // Calculate the total spending
   const totalSpending = Object.values(categorySpending).reduce(
