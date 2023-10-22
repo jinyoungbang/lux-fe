@@ -2,6 +2,7 @@
 import '../globals.css';
 import { Pagination } from "flowbite-react";
 import { useEffect, useState, createContext } from "react";
+import Navigation from "@/components/Navigation";
 
 export const MonthContext = createContext<number>(0);
 
@@ -40,9 +41,12 @@ export default function InsightsLayout({ children }: { children: React.ReactNode
   
   return (
     <>
+      <header className="flex h-14 z-20 relative bg-white mx-auto">
+        <Navigation />
+      </header>
       <div className="flex flex-col p-4 mt-14">
         <div className="flex flex-col items-center">
-          <h1>{getMonthFromNumber(currentPage)}</h1>
+          <h1 className='text-xl font-bold'>{getMonthFromNumber(currentPage)}</h1>
           <MonthPagination/>
         </div>
         <MonthProvider>

@@ -13,12 +13,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="flex flex-col max-w-md min-h-screen mx-auto">
         <div>
-          <header className="h-14 z-20 relative bg-white mx-auto">
-            <Navigation />
-          </header>
-          <div className="flex flex-col px-5 py-2.5">
-              {children}
-          </div>
+          {children}
         </div>
         <div className="flex-end">
           <Footer />

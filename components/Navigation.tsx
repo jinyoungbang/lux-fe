@@ -9,7 +9,7 @@ export default function Navigation() {
   const router = useRouter()
   return (
     <nav className="flex flex-col h-4 mt-4 mb-4 w-full px-5 items-center">
-      <div className="flex w-full py-4 justify-between">
+      <div className="flex w-full pt-4 mt-4 justify-between">
         <button onClick={() => router.back()}>
           <HiOutlineChevronLeft size={24}/>
         </button>
