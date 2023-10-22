@@ -104,7 +104,7 @@ const DailySpendingChart = ({ data }) => {
     <Card className='mt-4 mb-4 shadow-none' >
       <div className="flex items-center justify">
         <h5 className="text-sm font-medium leading-none text-gray-900 dark:text-white">
-          Daily spending for {currDate.toLocaleString('default', { month: 'long' })} 2023
+          Spending over time for {currDate.toLocaleString('default', { month: 'long' })} 2023
         </h5>
       </div>
       <Line options={options} data={chartData} />
