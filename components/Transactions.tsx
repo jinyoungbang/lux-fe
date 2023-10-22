@@ -17,7 +17,7 @@ const TransactionCard: React.FC<TransactionsProps> = ({children, viewAll}) => {
   };
 
   return (
-    <Card>
+    <Card className="shadow-none">
       <div className="mb-4 flex items-center justify-between">
         <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">
           Latest Transactions

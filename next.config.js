@@ -11,6 +11,15 @@ const nextConfig = {
         },
       ]
     },
+    images: {
+      remotePatterns: [
+        {
+          protocol: 'https',
+          hostname: 'i.ibb.co',
+          port: '',
+        },
+      ],
+    },
   }
   
   module.exports = nextConfig
