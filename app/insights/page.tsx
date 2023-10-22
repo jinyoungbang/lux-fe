@@ -1,6 +1,7 @@
 "use client"
 import TransactionCard from "@/components/TransactionCard";
 import Transactions from "@/components/Transactions";
+import CardRecommendation from "@/components/insights/CardRecommendation";
 import { Button, Spinner} from "flowbite-react";
 import { useEffect, useState, useContext } from "react";
 import { MonthContext } from "./layout";
@@ -42,7 +43,7 @@ export default function Insights() {
         <p className="font-bold text-2xl mx-auto mt-2 mb-4">
           {formatUSD(total)}
         </p>
-        <Button size="lg" className='mx-auto mt-2 mb-4' href="/insights/analyze">
+        <Button color="blue" size="lg" className='mx-auto mt-2 mb-4' href="/insights/analyze">
           Analyze
         </Button>
       </div>
@@ -55,6 +56,8 @@ export default function Insights() {
           </ul>
         }
       </Transactions>
+
+      <CardRecommendation />
     </main>
   );
 }

@@ -2,10 +2,14 @@
 import '../globals.css';
 import { Pagination } from "flowbite-react";
 import { useEffect, useState, createContext } from "react";
+import { usePathname } from 'next/navigation'
+
 
 export const MonthContext = createContext<number>(0);
 
 export default function InsightsLayout({ children }: { children: React.ReactNode, }) {
+  const pathname = usePathname()
+  console.log(pathname)
   const currMonth = new Date().getMonth();
   const [currentPage, setCurrentPage] = useState(currMonth + 1);
 
@@ -37,6 +41,16 @@ export default function InsightsLayout({ children }: { children: React.ReactNode
       </>
     )
   }
+
+  if (pathname === '/insights/cards') return (
+    <>
+      <div className="flex flex-col p-4 mt-14">
+        <MonthProvider>
+          {children}
+        </MonthProvider>
+      </div>
+    </>
+  )
   
   return (
     <>
