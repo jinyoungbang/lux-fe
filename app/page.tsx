@@ -5,32 +5,34 @@ import {
   PlaidLinkOptions,
 } from 'react-plaid-link';
 import { Button, Blockquote } from 'flowbite-react';
+import { useRouter } from "next/navigation";
 
 
 export default function Home() {
   const [linkToken, setLinkToken] = useState(null);
+  const router = useRouter();
 
   const onSuccess = useCallback((public_token: string, metadata: any) => {
     // Send public_token to the server
+    console.log('Login Successful')
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/plaid/exchange_public_token`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ public_token }),
+    }).then((response) => {
+        router.push('/insights')
     })
-      .then((response) => {
-        // Handle the response here
-      })
-      .catch((error) => {
-        console.error('Error sending public_token:', error);
-      });
+    .catch((error) => {
+      console.error('Error sending public_token:', error);
+    });
   }, []);
 
   const config: PlaidLinkOptions = {
     onSuccess: onSuccess,
     onExit: (err, metadata) => {
-      // Handle exit
+
     },
     onEvent: (eventName, metadata) => {
       // Handle events
@@ -53,7 +55,6 @@ export default function Home() {
       .catch((error) => {
         console.error('Error fetching Link Token:', error);
       });
-
     if (ready) {
       open();
     }
