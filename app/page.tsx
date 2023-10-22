@@ -4,7 +4,7 @@ import {
   usePlaidLink,
   PlaidLinkOptions,
 } from 'react-plaid-link';
-import { Button } from 'flowbite-react';
+import { Button, Blockquote } from 'flowbite-react';
 
 
 export default function Home() {
@@ -60,10 +60,35 @@ export default function Home() {
   }, [ready]);
 
   return (
-    <main>
-      <Button className="button is-link" color="warning" onClick={() => open()} disabled={!ready}>
-        Link account
-      </Button>
+    <main className="flex flex-col justify-between items-center h-screen p-5">
+      <div></div>
+      <div className="flex flex-col">
+        <img
+          alt="images"
+          className="mb-3 rounded-full shadow-lg mx-auto"
+          height="120"
+          src="/lighthouse.png"
+          width="120"
+        />
+        <div className="flex flex-col items-center mt-4">
+          <h1 className="text-2xl font-bold mx-auto mt-24">Lux</h1>
+          <p className="text-md font-extralight mt-2">Illuminate your personal finance</p>
+        </div>
+      </div>
+      <div className="flex-grow"></div>
+      <div className="w-full">
+        <Button
+          pill
+          className="button is-link mx-auto px-8 w-full"
+          color="blue"
+          size="xl"
+          onClick={() => open()}
+          disabled={!ready}
+        >
+          Get Started
+        </Button>
+      </div>
     </main>
   );
+
 }
